@@ -1,0 +1,29 @@
+#include "CountDown.h"
+#include <iostream>
+#include <string>
+
+Countdown::Countdown()
+{
+	if (!font.loadFromFile("Assets/fonts/BebasNeue-Regular.ttf"))
+		std::cout << "Font path not found within Countdown" << std::endl;
+	text.setFont(font);
+	text.setString(std::to_string(int(currentTime)));
+	text.setCharacterSize(24);
+	text.setFillColor(sf::Color::White);
+	text.setPosition(sf::Vector2f(1200, 50));
+}
+
+void Countdown::updateTime()
+{
+	sf::Time timeDelta = clock.getElapsedTime();
+	currentTime -= timeDelta.asSeconds() / 1000;
+
+	// check for 0 and reset the time
+	if (currentTime < 0)
+	{
+		currentTime = 9.99;
+		clock.restart();
+	}
+
+	text.setString(std::to_string(int(currentTime)));
+}
