@@ -1,5 +1,6 @@
 #include "CountDown.h"
 #include <iostream>
+#include <stdlib.h>
 #include <string>
 
 Countdown::Countdown()
@@ -22,8 +23,17 @@ void Countdown::updateTime()
 	if (currentTime < 0)
 	{
 		currentTime = 9.99;
-		clock.restart();
+		spawnObject();
 	}
 
 	text.setString(std::to_string(int(currentTime)));
+}
+
+void Countdown::spawnObject()
+{
+	object.setSize(sf::Vector2f(100, 100));
+
+	int x = rand() % 1000;
+	int y = rand() % 600;
+	object.setPosition(sf::Vector2f(x, y));
 }

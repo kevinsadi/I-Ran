@@ -7,6 +7,15 @@ sf::RenderWindow window(sf::VideoMode(1280, 720), "I Ran", sf::Style::Titlebar |
 Player* player = new Player();
 Countdown* timer = new Countdown();
 
+// Helper functions
+bool hasCollided(sf::RectangleShape a, sf::RectangleShape b)
+{
+	sf::IntRect boundingBoxA(int(a.getPosition().x), int(a.getPosition().y), 100, 100);
+	sf::IntRect boundingBoxB(int(b.getPosition().x), int(b.getPosition().y), 100, 100);
+
+	return (boundingBoxA.intersects(boundingBoxB));
+}
+
 // All initialization goes here
 void start()
 {
@@ -28,6 +37,9 @@ void draw()
     window.clear();
     window.draw(player->sprite);
 	window.draw(timer->text);
+	if (hasCollided(player->sprite, timer->object))
+		timer->object.setPosition(3000, 3000);
+	window.draw(timer->object);
 
     window.display();
 }

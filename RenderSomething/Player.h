@@ -14,7 +14,7 @@ class Player {
 public:
 	Player(); // default constructor
 
-	float speed = 5.0f;
+	float speed = 2.5f;
 	sf::Vector2f position = sf::Vector2f(600, 350);
 	sf::RectangleShape sprite; //TODO: Replace with actual sprite.
 
