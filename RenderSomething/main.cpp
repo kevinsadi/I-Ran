@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Player.h"
 
-sf::RenderWindow window(sf::VideoMode(1280, 720), "I Ran");
+sf::RenderWindow window(sf::VideoMode(1280, 720), "I Ran", sf::Style::Titlebar | sf::Style::Close);
 Player* player = new Player();
 
 // All initialization goes here
@@ -11,6 +11,7 @@ void start()
     // Note: We do not need a delta time because most computers are fast enough to render this at 60fps.
     // If a computer somehow renders it below 60, the code will start breaking.
     window.setFramerateLimit(60);
+	sf::Clock clock;
 }
 
 // All update logic goes here
@@ -20,7 +21,7 @@ void update()
 }
 
 // All rendering code goes here
-int draw()
+void draw()
 {
     window.clear();
     window.draw(player->sprite);
