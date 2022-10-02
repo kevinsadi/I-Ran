@@ -8,7 +8,7 @@ Player* player = new Player();
 Countdown* timer = new Countdown();
 
 // Helper functions
-bool hasCollided(sf::RectangleShape a, sf::RectangleShape b)
+bool hasCollided(sf::Transformable a, sf::Transformable b)
 {
 	sf::IntRect boundingBoxA(int(a.getPosition().x), int(a.getPosition().y), 100, 100);
 	sf::IntRect boundingBoxB(int(b.getPosition().x), int(b.getPosition().y), 100, 100);
@@ -29,6 +29,12 @@ void update()
 {
     player->update();
 	timer->updateTime();
+
+    for (int i = 0; i < timer->objects.size(); i++)
+    {
+        if (hasCollided(player->sprite, timer->objects[i]))
+            timer->objects[i].setPosition(3000, 3000);
+    }
 }
 
 // All rendering code goes here
@@ -37,9 +43,11 @@ void draw()
     window.clear();
     window.draw(player->sprite);
 	window.draw(timer->text);
-	if (hasCollided(player->sprite, timer->object))
-		timer->object.setPosition(3000, 3000);
-	window.draw(timer->object);
+
+    for (int i = 0; i < timer->objects.size(); i++)
+    {
+        window.draw(timer->objects[i]);
+    }
 
     window.display();
 }

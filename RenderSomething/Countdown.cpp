@@ -7,6 +7,7 @@ Countdown::Countdown()
 {
 	if (!font.loadFromFile("Assets/fonts/BebasNeue-Regular.ttf"))
 		std::cout << "Font path not found within Countdown" << std::endl;
+
 	text.setFont(font);
 	text.setString(std::to_string(int(currentTime)));
 	text.setCharacterSize(24);
@@ -31,9 +32,12 @@ void Countdown::updateTime()
 
 void Countdown::spawnObject()
 {
+    sf::RectangleShape object = sf::RectangleShape();
 	object.setSize(sf::Vector2f(100, 100));
 
 	int x = rand() % 1000;
 	int y = rand() % 600;
 	object.setPosition(sf::Vector2f(x, y));
+
+    objects.push_back(object);
 }
