@@ -3,9 +3,20 @@
 #include "Player.h"
 #include "CountDown.h"
 
+
+enum GameStage
+{
+    PLAYABLE,
+    MOVETOCENTER,
+    PAUSEABIT,
+    GOTOHIJAB,
+    CUTSCENE
+};
+
 sf::RenderWindow window(sf::VideoMode(1280, 720), "I Ran", sf::Style::Titlebar | sf::Style::Close);
 Player* player = new Player();
 Countdown* timer = new Countdown();
+GameStage gameStage = PLAYABLE;
 
 // Helper functions
 bool hasCollided(sf::Transformable a, sf::Transformable b)
@@ -27,28 +38,48 @@ void start()
 // All update logic goes here
 void update()
 {
-    player->update();
-	timer->updateTime();
-
-    for (int i = 0; i < timer->objects.size(); i++)
+    if (gameStage == PLAYABLE)
     {
-        if (hasCollided(player->sprite, timer->objects[i]))
-            timer->objects[i].setPosition(3000, 3000);
+        player->update();
+        timer->updateTime();
+
+        for (int i = 0; i < timer->objects.size(); i++)
+        {
+            if (hasCollided(player->sprite, timer->objects[i]))
+                timer->objects[i].setPosition(3000, 3000);
+        }
     }
+    
+    else if (gameStage == MOVETOCENTER) {}
+    else if (gameStage == PAUSEABIT) {}
+    else if (gameStage == GOTOHIJAB) {}
 }
 
 // All rendering code goes here
 void draw()
 {
     window.clear();
-    window.draw(player->sprite);
-	window.draw(timer->text);
 
-    for (int i = 0; i < timer->objects.size(); i++)
+    // A bit ratchet to access font that way, but it's okay for this.
+    if (gameStage == CUTSCENE)
     {
-        window.draw(timer->objects[i]);
+        sf::Text text;
+        text.setString("In Iran, protestors are dying every 10 seconds.");
+        text.setFont(timer->font);
+        text.setCharacterSize(24);
+        text.setFillColor(sf::Color::White);
+        text.setPosition(sf::Vector2f(1200, 50));
     }
+    else
+    {
+        window.draw(player->sprite);
+        window.draw(timer->text);
 
+        for (int i = 0; i < timer->objects.size(); i++)
+        {
+            window.draw(timer->objects[i]);
+        }
+    }
     window.display();
 }
 
