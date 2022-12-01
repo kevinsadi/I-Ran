@@ -2,17 +2,21 @@
 // Created by Roshan Patel on 9/30/22.
 //
 
+#include <iostream>
 #include "Player.h"
 
 Player::Player()
 {
-	sprite.setSize(sf::Vector2f(100, 100));
+    if (!texture.loadFromFile("Assets/sprites/character.png"))
+        std::cout << "Could not load player texture" << std::endl;
+
+    sprite.setTexture(texture);
 }
 
 void Player::update()
 {
-	sprite.setPosition(position);
 	handleInput();
+    sprite.setPosition(position);
 }
 
 void Player::handleInput()

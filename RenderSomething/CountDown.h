@@ -20,7 +20,7 @@ public:
 	sf::Font font;
 	sf::Clock clock;
 	float currentTime = 9;
-	sf::RectangleShape object;
+	std::vector<sf::RectangleShape> objects;
 	bool collectedItem = false;
 
 };

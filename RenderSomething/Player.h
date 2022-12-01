@@ -16,13 +16,14 @@ public:
 
 	float speed = 2.5f;
 	sf::Vector2f position = sf::Vector2f(600, 350);
-	sf::RectangleShape sprite; //TODO: Replace with actual sprite.
+    sf::Sprite sprite;
 
 	void update();
 
 private:
 	void handleInput();
 
+    sf::Texture texture;
 	// Member and function declarations go in header.
 	// It is best practice to use variables for input keys.
 	sf::Keyboard::Key upKey = sf::Keyboard::W;
